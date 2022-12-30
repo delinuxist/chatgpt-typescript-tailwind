@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base{
+  /* modify a base style  */
+  textarea {
+    @apply bg-[#40414f] border-none rounded-[5px] p-[12px] text-white outline-none shadow-lg text-[1.25rem] w-[90%]
+  }
+}
+
+@layer components{
+  /* add your own extracted components */
+  .newChat-btn {
+    @apply p-[12px] hover:bg-[rgb(255,255,255,0.5)] cursor-pointer flex items-center gap-2 border border-white rounded-[5px] transition-[ease,0.25s,all]
+  }
+}
+
+@layer utilities{
+  /* simple utility-based classes */
+  .main-container {
+    @apply flex min-h-[100vh] text-white
+  }
+  .side-menu{
+    @apply w-[260px] bg-[#202123] box-border p-[10px] 
+  }
+
+  .chatbox {
+    @apply bg-[#343541] w-full relative
+  }
+
+  .chat-input-container {
+    @apply p-[24px] absolute flex justify-center bottom-0 left-0 right-0
+  }
+}
