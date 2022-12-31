@@ -5,7 +5,7 @@
 
 @layer base{
   /* modify a base style  */
-  textarea {
+  input {
     @apply bg-[#40414f] border-none rounded-[5px] p-[12px] text-white outline-none shadow-lg text-[1.25rem] w-[90%]
   }
 }
@@ -27,7 +27,7 @@
   }
 
   .chatbox {
-    @apply bg-[#343541] w-full relative
+    @apply bg-[#343541] w-full relative 
   }
 
   .chat-input-container {

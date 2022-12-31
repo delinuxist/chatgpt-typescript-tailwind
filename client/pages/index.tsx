@@ -1,7 +1,27 @@
+import axios from 'axios';
 import Head from 'next/head'
+import { FormEvent, useState } from 'react'
 import { IoIosAdd } from "react-icons/io"
+import { ChatLog } from '../components/layout/chat-log'
+import { Data } from '../components/layout/ChatMessage';
 
 export default function Home() {
+  const [chatLog, setChatLog] = useState<Data[]>([]);
+  const [input, setInput] = useState("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let newLog = [...chatLog, { user: "person", message: `${input}` }]
+    setChatLog(newLog);
+
+    const { data } = await axios.post("http://192.168.8.147:4000", {
+      message: input
+    })
+    newLog = [...newLog, { user: "gpt", message: `${data.message}` }];
+    setChatLog(newLog);
+    setInput("")
+  }
+
   return (
     <>
       <Head>
@@ -12,14 +32,17 @@ export default function Home() {
       </Head>
       <main className='main-container'>
         <aside className='side-menu'>
-          <div className='newChat-btn'>
+          <div className='newChat-btn' onClick={() => setChatLog([])}>
             <IoIosAdd size={20} /> <h3>New Chat</h3>
           </div>
         </aside>
         <section className='chatbox'>
-          <div className=' chat-input-container'>
-            <textarea rows={1} />
+          <div className='h-[82vh] overflow-y-auto'>
+            <ChatLog chatData={chatLog} />
           </div>
+          <form onSubmit={handleSubmit} className=' chat-input-container'>
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
+          </form>
         </section>
       </main>
     </>
